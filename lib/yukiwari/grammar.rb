@@ -1,4 +1,4 @@
-class Yukiwari::Parser
+class Yukiwari::Grammar
   APP = Yukiwari
   INST = APP::ISet
 

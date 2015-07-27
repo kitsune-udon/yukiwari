@@ -6,11 +6,11 @@ require 'yukiwari/version'
 Gem::Specification.new do |spec|
   spec.name          = "yukiwari"
   spec.version       = Yukiwari::VERSION
-  spec.authors       = ["TODO: Write your name"]
-  spec.email         = ["TODO: Write your email address"]
+  spec.authors       = ["kitsune_udon"]
+  spec.email         = ["kitsune.udon.delicious@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = %q{An extended PEG parser generator}
+  spec.description   = %q{An extended PEG parser generator}
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
 

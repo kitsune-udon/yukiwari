@@ -22,7 +22,7 @@ class Yukiwari::Machine
     @cont_stack = [APP::Cont.new(0,@offset,1,0,0)]
     @counter_stack = []
     @memo = {}
-    @return_value = nil
+    @return_value = false
     @call_count = {}
 
     self
