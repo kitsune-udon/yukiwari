@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["kitsune_udon"]
   spec.email         = ["kitsune.udon.delicious@gmail.com"]
 
-  spec.summary       = %q{An extended PEG parser generator}
-  spec.description   = %q{An extended PEG parser generator}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{A Parser Generator of PEG}
+  spec.description   = %q{A Parser Generator of PEG}
+  spec.homepage      = "https://github.com/kitsune-udon/yukiwari"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
