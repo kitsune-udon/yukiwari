@@ -38,22 +38,22 @@ or
 ### Expr Module
 - Exprモジュール内に文法定義のためのクラスがある。PEGの式との対応を以下の表にまとめる。
 
-|Class Name|PEG Symbol|  |
-|:--------:|:--------:|:-|
-|Epsilon|epsilon||
-|Char|[ ]||
-|String|"..."||
-|Optional|?||
-|Zero-or-More|\*||
-|One-or-More|+||
-|And|&||
-|Not|!||
-|Choice|/||
-|NT|non terminal symbol||
+| Class Name | PEG Expression | Description |
+|:-:|:-:|:-|
+| Epsilon | ε | |
+| Char | [ ] | character class |
+| String | "..." | string |
+| Optional | ? | zero or one |
+| Zero-or-More | \* | zero or more repete |
+| One-or-More | + | one or more repete |
+| And | & | and predicate, lookahead without consumption |
+| Not | ! | not predicate, lookahead without consumption |
+| Choice | / | ordered choice |
+| NT | |  non terminal symbol|
 
 - なお、連接は*ruby*のArrayクラスで表現される。
 - PEGはCFGと大きく異なるため同様の発想で文法を記述すると上手くいかないことが多い。下記のサンプルコードを参考にしてほしい。
-- また、左結合の二項オペレータを左再帰を用い自然に書けている点に注目せよ。通常は*左再帰の除去*という文法変更を行い、actionで*継続渡し*を用いる必要がある。
+- また、左結合の二項オペレータを左再帰を用い自然に書けている点に注目せよ。通常は**左再帰の除去**という文法変更を行い、actionで**継続渡し**を用いる必要がある。
 
 ### Sample : Calculator
 PEGの表現
