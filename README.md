@@ -11,8 +11,11 @@ An implementation of PEG parser generator for Ruby
 ## Installation
 
     $ cd <cloned or exported dir>
+
 and then execute
+
     $ bundle && rake build && rake install
+
 or
     $ bundle && gem build yukiwari.gemspec && gem install yukiwari
 
@@ -33,6 +36,7 @@ or
 
 ### Expr Module
 - Exprモジュール内に文法定義のためのクラスがある。PEGの式との対応を以下の表にまとめる。
+
 |Class Name|
 |:--------:|
 |Epsilon|
@@ -45,6 +49,7 @@ or
 |Not|
 |NT|
 |Choice|
+
 - なお、連接は*ruby*のArrayクラスで表現される。
 - PEGはCFGと大きく異なるため同様の発想で文法を記述すると上手くいかないことが多い。下記のサンプルコードを参考にしてほしい。
 - また、左結合の二項オペレータを左再帰を用い自然に書けている点に注目せよ。通常は*左再帰の除去*という文法変更を行い、actionで*継続渡し*を用いる必要がある。
