@@ -10,13 +10,14 @@ An implementation of PEG parser generator for Ruby
 
 ## Installation
 
-    $ cd <cloned or exported dir>
+    $ cd {cloned or exported dir}
 
 and then execute
 
     $ bundle && rake build && rake install
 
 or
+
     $ bundle && gem build yukiwari.gemspec && gem install yukiwari
 
 ## Usage
@@ -37,18 +38,18 @@ or
 ### Expr Module
 - Exprモジュール内に文法定義のためのクラスがある。PEGの式との対応を以下の表にまとめる。
 
-|Class Name|
-|:--------:|
-|Epsilon|
-|Char|
-|String|
-|Optional|
-|Zero-or-More|
-|One-or-More|
-|And|
-|Not|
-|NT|
-|Choice|
+|Class Name|PEG Symbol|  |
+|:--------:|:--------:|:-|
+|Epsilon|epsilon||
+|Char|[ ]||
+|String|"..."||
+|Optional|?||
+|Zero-or-More|\*||
+|One-or-More|+||
+|And|&||
+|Not|!||
+|Choice|/||
+|NT|non terminal symbol||
 
 - なお、連接は*ruby*のArrayクラスで表現される。
 - PEGはCFGと大きく異なるため同様の発想で文法を記述すると上手くいかないことが多い。下記のサンプルコードを参考にしてほしい。
