@@ -1,6 +1,12 @@
 # Yukiwari
 
-An implementation of PEG's parser generator
+An implementation of PEG parser generator for Ruby
+
+特徴
+- 直接間接左再帰を解決する
+- 文法を定義した外部ファイルを用いない
+- ruleとactionの分離して記述する
+- 仮想機械を実行するため処理系の関数コールスタックを食い尽くさない
 
 ## Installation
 
@@ -19,7 +25,58 @@ Or install it yourself as:
     $ gem install yukiwari
 
 ## Usage
-Sample : Definition of Calculator
+
+### Grammer Class
+Grammerクラスにはrule,action,entry,parserメソッドがある。
+非終端記号を表現するオブジェクトは何でもよいが、パフォーマンスのためSymbolを用いることを推奨する。
+
+### Parser Class
+Parserクラスにはparse,input,run,accepted?,accepted_string,action_result,resultメソッドがある。
+Parserクラスには他にもpublicなメソッドがあるがデバッグ用なので気にしなくて良い。
+
+### ActionArgument Class
+actionは非終端記号の受理に成功した時のみに呼ばれる。
+ActionArgumentクラスはその時に引数として渡されるオブジェクトである。
+ActionArgumentクラスにはstart_pos,end_pos,elements,contentメソッドがある。
+
+### Expr Module
+Exprモジュール内に文法定義のためのクラスがある。PEGの式との対応を以下の表にまとめる。
+
+Epsilon
+Char
+String
+Optional
+Zero-or-More
+One-or-More
+And
+Not
+NT
+Choice
+
+なお、連接はrubyのArrayクラスで表現される。
+
+PEGはCFGと大きく異なるため同様の発想で文法を記述すると上手くいかないことが多い。
+下記のサンプルコードを参考にしてほしい。
+また、左結合の二項オペレータを左再帰を用い自然に書けている点に注目せよ。
+通常は左再帰の除去という文法変更を行い、actionで継続渡しを用いる必要がある。
+
+### Sample : Definition of Calculator
+PEGの表現
+```
+S <- EXPR EOS
+EXPR <- ADDSUB
+ADDSUB <- ADDSUB ADDSUB_OP MULDIV / MULDIV
+ADDSUB_OP <- "+" / "-"
+MULDIV <- MULDIV MULDIV_OP UNARY / UNARY
+MULDIV_OP <- "*" / "/"
+UNARY <- UNARY_OP UNARY / TERM
+UNARY_OP <- "-"
+TERM <- BRACE / NUM
+BRACE <- "(" EXPR ")"
+NUM <- [0-9]+
+EOS <- !.
+```
+
 ```ruby
 require 'yukiwari'
 
@@ -91,9 +148,8 @@ grammar.action(:MULDIV_OP, act_arithop)
 
 grammar.entry(:S)
 
-runner = grammar.generate_runner
-str = "-(-9*-8)/-(3*2)-3*(7-2-1)"
-p runner.input(str).run.result
+parser = grammar.parser
+p parser.parse("-(-9*-8)/-(3*2)-3*(7-2-1)")
 ```
 
 ## Development

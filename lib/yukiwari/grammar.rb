@@ -25,12 +25,12 @@ class Yukiwari::Grammar
     self
   end
 
-  def generate_runner
+  def parser
     assembly, label_table = compile
     insert_entrycall(assembly, @entry_id) if @entry_id
     m = APP::Machine.new(@actions, leftrec_info)
 
-    APP::Runner.new(m, assembly, label_table)
+    APP::Parser.new(m, assembly, label_table)
   end
 
   private

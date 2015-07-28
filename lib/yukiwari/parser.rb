@@ -1,4 +1,4 @@
-class Yukiwari::Runner
+class Yukiwari::Parser
   APP = Yukiwari
   attr_reader :breakpoints, :step_count, :history
   attr_accessor :debug
@@ -103,13 +103,19 @@ class Yukiwari::Runner
       if (top = @m.call_stack[-1]) &&
         ::Array===(top) && (ip = top[0]) &&
         ip == -1 && (action_results = top[3])
-        action_results
+        action_results[0]
       else
         raise "invalid call_stack state"
       end
     else
       nil
     end
+  end
+
+  def parse(input_string)
+    input(input_string)
+    run
+    accepted?
   end
 
   def result
@@ -147,6 +153,7 @@ class Yukiwari::Runner
     self
   end
 
+  private
   def pre_exec_state
     {
       :step_count => @step_count,
