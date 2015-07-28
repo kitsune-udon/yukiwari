@@ -80,22 +80,31 @@ Ruby Code
 ```ruby
 require 'yukiwari'
 
-g = Yukiwari::Grammar.new
+E    = Yukiwari::Expr
+V    = E::NT
+Eps  = E::Epsilon[]
+Char = E::Char
+Str  = E::String
+Rep1 = E::Rep1
+Rep0 = E::Rep0
+Opt  = E::Optional
+And  = E::And
+Not  = E::Not
+OC   = E::Choice
 
-E = Yukiwari::Expr
-EPS = E::Epsilon[]
-g.rule(:S, E::NT[:EXPR], E::NT[:EOS])
-g.rule(:EXPR, E::NT[:ADDSUB])
-g.rule(:ADDSUB, E::Choice[[E::NT[:ADDSUB], E::NT[:ADDSUB_OP], E::NT[:MULDIV]], E::NT[:MULDIV]])
-g.rule(:ADDSUB_OP, E::Choice[E::Char["+"], E::Char["-"]])
-g.rule(:MULDIV, E::Choice[[E::NT[:MULDIV], E::NT[:MULDIV_OP], E::NT[:UNARY]], E::NT[:UNARY]])
-g.rule(:MULDIV_OP, E::Choice[E::Char["*"], E::Char["/"]])
-g.rule(:UNARY, E::Choice[[E::NT[:UNARY_OP], E::NT[:UNARY]], E::NT[:TERM]])
-g.rule(:UNARY_OP, E::Char["-"])
-g.rule(:TERM, E::Choice[E::NT[:BRACE], E::NT[:NUM]])
-g.rule(:BRACE, E::Char["("], E::NT[:EXPR], E::Char[")"])
-g.rule(:NUM, E::Rep1[E::Char[("0".."9").reduce(:+)]])
-g.rule(:EOS, E::Not[E::Char[""]])
+g = Yukiwari::Grammar.new
+g.rule(:S, V[:EXPR], V[:EOS])
+g.rule(:EXPR, V[:ADDSUB])
+g.rule(:ADDSUB, OC[[V[:ADDSUB], V[:ADDSUB_OP], V[:MULDIV]], V[:MULDIV]])
+g.rule(:ADDSUB_OP, OC[Char["+"], Char["-"]])
+g.rule(:MULDIV, OC[[V[:MULDIV], V[:MULDIV_OP], V[:UNARY]], V[:UNARY]])
+g.rule(:MULDIV_OP, OC[Char["*"], Char["/"]])
+g.rule(:UNARY, OC[[V[:UNARY_OP], V[:UNARY]], V[:TERM]])
+g.rule(:UNARY_OP, Char["-"])
+g.rule(:TERM, OC[V[:BRACE], V[:NUM]])
+g.rule(:BRACE, Char["("], V[:EXPR], Char[")"])
+g.rule(:NUM, Rep1[Char[("0".."9").reduce(:+)]])
+g.rule(:EOS, Not[Char[""]])
 
 act_through = lambda{|act| act.elements[0]}
 g.action(:NUM, lambda{|act| act.content.to_i})
