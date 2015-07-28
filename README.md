@@ -10,55 +10,44 @@ An implementation of PEG parser generator for Ruby
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'yukiwari'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install yukiwari
+    $ cd <cloned or exported dir>
+and then execute
+    $ bundle && rake build && rake install
+or
+    $ bundle && gem build yukiwari.gemspec && gem install yukiwari
 
 ## Usage
 
 ### Grammer Class
-Grammerクラスにはrule,action,entry,parserメソッドがある。
-非終端記号を表現するオブジェクトは何でもよいが、パフォーマンスのためSymbolを用いることを推奨する。
+- Grammerクラスには*rule,action,entry,parser*メソッドがある。
+- 非終端記号を表現するオブジェクトは何でもよいが、パフォーマンスのためSymbolを用いることを推奨する。
 
 ### Parser Class
-Parserクラスにはparse,input,run,accepted?,accepted_string,action_result,resultメソッドがある。
-Parserクラスには他にもpublicなメソッドがあるがデバッグ用なので気にしなくて良い。
+- Parserクラスには*parse,input,run,accepted?,accepted_string,action_result,result*メソッドがある。
+- Parserクラスには他にもpublicなメソッドがあるがデバッグ用なので気にしなくて良い。
 
 ### ActionArgument Class
-actionは非終端記号の受理に成功した時のみに呼ばれる。
-ActionArgumentクラスはその時に引数として渡されるオブジェクトである。
-ActionArgumentクラスにはstart_pos,end_pos,elements,contentメソッドがある。
+- actionは非終端記号の受理に成功した時のみに呼ばれる。
+- ActionArgumentクラスはその時に引数として渡されるオブジェクトである。
+- ActionArgumentクラスには*start_pos,end_pos,elements,content*メソッドがある。
 
 ### Expr Module
-Exprモジュール内に文法定義のためのクラスがある。PEGの式との対応を以下の表にまとめる。
-
-Epsilon
-Char
-String
-Optional
-Zero-or-More
-One-or-More
-And
-Not
-NT
-Choice
-
-なお、連接はrubyのArrayクラスで表現される。
-
-PEGはCFGと大きく異なるため同様の発想で文法を記述すると上手くいかないことが多い。
-下記のサンプルコードを参考にしてほしい。
-また、左結合の二項オペレータを左再帰を用い自然に書けている点に注目せよ。
-通常は左再帰の除去という文法変更を行い、actionで継続渡しを用いる必要がある。
+- Exprモジュール内に文法定義のためのクラスがある。PEGの式との対応を以下の表にまとめる。
+|Class Name|
+|:--------:|
+|Epsilon|
+|Char|
+|String|
+|Optional|
+|Zero-or-More|
+|One-or-More|
+|And|
+|Not|
+|NT|
+|Choice|
+- なお、連接は*ruby*のArrayクラスで表現される。
+- PEGはCFGと大きく異なるため同様の発想で文法を記述すると上手くいかないことが多い。下記のサンプルコードを参考にしてほしい。
+- また、左結合の二項オペレータを左再帰を用い自然に書けている点に注目せよ。通常は*左再帰の除去*という文法変更を行い、actionで*継続渡し*を用いる必要がある。
 
 ### Sample : Calculator
 PEGの表現
