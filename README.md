@@ -39,17 +39,17 @@ or
 - Exprモジュール内に文法定義のためのクラスがある。PEGの式との対応を以下の表にまとめる。
 
 | Class Name | PEG Expression | Description |
-|:-:|:-:|:-|
+|:---:|:---:|:---|
 | Epsilon | ε | |
 | Char | [ ] | character class |
 | String | "..." | string |
-| Optional | ? | zero or one |
-| Zero-or-More | \* | zero or more repete |
-| One-or-More | + | one or more repete |
+| Optional | ? | zero or one element |
+| Zero-or-More | \* | zero or more repetition |
+| One-or-More | + | one or more repetition |
 | And | & | and predicate, lookahead without consumption |
 | Not | ! | not predicate, lookahead without consumption |
 | Choice | / | ordered choice |
-| NT | |  non terminal symbol|
+| NT | |  non terminal symbol |
 
 - なお、連接は*ruby*のArrayクラスで表現される。
 - PEGはCFGと大きく異なるため同様の発想で文法を記述すると上手くいかないことが多い。下記のサンプルコードを参考にしてほしい。
