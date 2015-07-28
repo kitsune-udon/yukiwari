@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["kitsune_udon"]
   spec.email         = ["kitsune.udon.delicious@gmail.com"]
 
-  spec.summary       = %q{A Parser Generator of PEG}
-  spec.description   = %q{A Parser Generator of PEG}
+  spec.summary       = %q{An implementation of PEG parser generator}
+  spec.description   = %q{An implementation of PEG parser generator, which can resolve direct or indirect left recursion.}
   spec.homepage      = "https://github.com/kitsune-udon/yukiwari"
   spec.license       = "MIT"
 

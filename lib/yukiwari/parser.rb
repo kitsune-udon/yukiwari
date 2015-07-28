@@ -92,7 +92,11 @@ class Yukiwari::Parser
 
   def accepted_string
     if accepted?
-      @m.input_string[@m.offset...@m.cursor]
+      if s = @m.input_string
+        s[@m.offset...@m.cursor]
+      else
+        raise "invalid input_string state"
+      end
     else
       nil
     end
