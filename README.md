@@ -60,7 +60,7 @@ PEGはCFGと大きく異なるため同様の発想で文法を記述すると�
 また、左結合の二項オペレータを左再帰を用い自然に書けている点に注目せよ。
 通常は左再帰の除去という文法変更を行い、actionで継続渡しを用いる必要がある。
 
-### Sample : Definition of Calculator
+### Sample : Calculator
 PEGの表現
 ```
 S <- EXPR EOS
@@ -76,7 +76,7 @@ BRACE <- "(" EXPR ")"
 NUM <- [0-9]+
 EOS <- !.
 ```
-
+Ruby Code
 ```ruby
 require 'yukiwari'
 
@@ -152,6 +152,9 @@ parser = g.parser
 p parser.parse("-(-9*-8)/-(3*2)-3*(7-2-1)")
 p parser.action_result
 ```
+
+## TODO
+- 文法を定義する内部DSLの作成
 
 ## Development
 
