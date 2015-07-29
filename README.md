@@ -34,6 +34,7 @@ or
 
 #### parser -> Parser
 
+----
 ### Parser Class
 - Parser class provides *parse, input, run, accepted?, accepted_string, action_result, result* methods.
 - Parser class has other public methods, but they are no use for general users because provided for dubugging.
@@ -52,6 +53,7 @@ or
 
 #### result -> [Boolean, String, Object]
 
+----
 ### ActionArgument Class
 - Each action is called only if it successes accepting the corresponding nonterminal symbol. Then, an ActionArgument Class object is passed to the action procedure.
 - ActionArgument class provides *id, start_pos, end_pos, elements, content* methods.
@@ -66,6 +68,7 @@ or
 
 #### content -> String
 
+----
 ### Expr Module
 In Expr module, there are classes corresponding to PEG notations. The relations are as follows.
 
@@ -84,10 +87,12 @@ In Expr module, there are classes corresponding to PEG notations. The relations 
 
 Additionally, sequence is represented by the Ruby's Array class. You can use the bracket notation(e.g. [a,b,c]).
 
+----
 ### Notes
 - PEG sementics is very different from CFG's. So, It doesn't work by the same way. Refer to the following sample code.
 - Particularly, look at the point that the left-associative binary operator is written naturally by left-recursion. In the ordinary way, *Elimination of left-recursion* and *Continuation-passing* are necessary.
 
+----
 ### Sample : Calculator
 Representation by PEG
 ```
