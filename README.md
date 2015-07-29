@@ -25,29 +25,45 @@ or
 ### Grammar Class
 - Grammar class provides *rule, action, entry, parser* methods.
 - You can use any object types as identifier, but recommends Symbol objects in terms of performace.
+
 #### rule(id, ...) -> self
+
 #### action(id, func) -> self
+
 #### entry(id) -> self
+
 #### parser -> Parser
 
 ### Parser Class
 - Parser class provides *parse, input, run, accepted?, accepted_string, action_result, result* methods.
 - Parser class has other public methods, but they are no use for general users because provided for dubugging.
+
 #### parse(input_string) -> Boolean
+
 #### input(input_string, offset=0) -> self
+
 #### run(max_step=nil) -> self
+
 #### accepted? -> Boolean
+
 #### accepted_string -> String
+
 #### action_result -> Object
+
 #### result -> [Boolean, String, Object]
 
 ### ActionArgument Class
 - Each action is called only if it successes accepting the corresponding nonterminal symbol. Then, an ActionArgument Class object is passed to the action procedure.
 - ActionArgument class provides *id, start_pos, end_pos, elements, content* methods.
+
 #### id -> Object
+
 #### start_pos -> Integer
+
 #### end_pos -> Integer
+
 #### elements -> [Object]
+
 #### content -> String
 
 ### Expr Module
