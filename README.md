@@ -2,11 +2,11 @@
 
 An implementation of PEG parser generator for Ruby
 
-特徴
-- 直接間接左再帰を解決する
-- 文法を定義した外部ファイルを用いない
-- ruleとactionの分離して記述する
-- 仮想機械を実行するため処理系の関数コールスタックを食い尽くさない
+Features
+- Resolves direct and indirect left-recursion.
+- Uses no external grammer definition file.
+- Separates semantic actions description from rules description.
+- Uses Virtual Machine, so that it doesn't exhaust Ruby Interpreter's function stack when long input.
 
 ## Installation
 
@@ -23,22 +23,21 @@ or
 ## Usage
 
 ### Grammer Class
-- Grammerクラスには*rule,action,entry,parser*メソッドがある。
-- 非終端記号を表現するオブジェクトは何でもよいが、パフォーマンスのためSymbolを用いることを推奨する。
+- Grammer class provides *rule, action, entry, parser* methods.
+- You can use any object types, but recommends Symbol objects in terms of performace.
 
 ### Parser Class
-- Parserクラスには*parse,input,run,accepted?,accepted_string,action_result,result*メソッドがある。
-- Parserクラスには他にもpublicなメソッドがあるがデバッグ用なので気にしなくて良い。
+- Parser class provides *parse, input, run, accepted?, accepted_string, action_result, result* methods.
+- Parser class has other public methods, but they are no use for general users because provided for dubugging.
 
 ### ActionArgument Class
-- actionは非終端記号の受理に成功した時のみに呼ばれる。
-- ActionArgumentクラスはその時に引数として渡されるオブジェクトである。
-- ActionArgumentクラスには*start_pos,end_pos,elements,content*メソッドがある。
+- Each action is called only if it successes accepting the corresponding nonterminal symbol. Then, an ActionArgument Class object is passed to the action procedure.
+- ActionArgument class provides *start_pos, end_pos, elements, content* methods.
 
 ### Expr Module
-- Exprモジュール内に文法定義のためのクラスがある。PEGの式との対応を以下の表にまとめる。
+- In Expr module, there are classes corresponding to PEG notations. The relations are as follows.
 
-| Class Name | PEG Expression | Description |
+| Class Name | PEG notation | Description |
 |:---:|:---:|:---|
 | Epsilon | ε |  null |
 | Char | [ ] | character class |
@@ -46,17 +45,17 @@ or
 | Optional | ? | zero or one element |
 | Rep0 | \* | zero or more repetition |
 | Rep1 | + | one or more repetition |
-| And | & | and predicate, lookahead without consumption |
-| Not | ! | not predicate, lookahead without consumption |
+| And | & | and predicate, look-ahead without consumption |
+| Not | ! | not predicate, look-ahead without consumption |
 | Choice | / | ordered choice |
-| NT | |  non terminal symbol |
+| NT | | nonterminal symbol |
 
-- なお、連接は*ruby*のArrayクラスで表現される。
-- PEGはCFGと大きく異なるため同様の発想で文法を記述すると上手くいかないことが多い。下記のサンプルコードを参考にしてほしい。
-- また、左結合の二項オペレータを左再帰を用い自然に書けている点に注目せよ。通常は**左再帰の除去**という文法変更を行い、actionで**継続渡し**を用いる必要がある。
+- Additionally, sequence is expressed by the Ruby's Array class. You can use the bracket notation(e.g. [a,b,c]).
+- PEG sementics is very different from CFG. So, It doesn't work by same way. Refer to the following sample code.
+- Further, see the point the left-associative binary operator is written by left-recursion. In the ordinary way, *Elimination of left-recursion* and *Continuation-passing* are necessary.
 
 ### Sample : Calculator
-PEGの表現
+Representation by PEG
 ```
 S <- EXPR EOS
 EXPR <- ADDSUB
@@ -158,7 +157,7 @@ p parser.action_result
 ```
 
 ## ToDo
-- 文法を定義する内部DSLの作成
+- To support a way to define a grammar by Embeded-DSL.
 
 ## Contributing
 
