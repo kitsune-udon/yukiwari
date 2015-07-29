@@ -4,9 +4,9 @@ An implementation of PEG parser generator for Ruby
 
 Features
 - Resolves direct and indirect left-recursion.
-- Uses no external grammer definition file.
-- Separates semantic actions description from rules description.
-- Uses Virtual Machine, so that it doesn't exhaust Ruby Interpreter's function stack when long input.
+- Uses Virtual Machine, so that it doesn't exhaust the Ruby Interpreter's function stack when a long input is given.
+- Uses no external grammar definition file.
+- Separates the description of semantic actions from that of rules.
 
 ## Installation
 
@@ -22,22 +22,38 @@ or
 
 ## Usage
 
-### Grammer Class
-- Grammer class provides *rule, action, entry, parser* methods.
-- You can use any object types, but recommends Symbol objects in terms of performace.
+### Grammar Class
+- Grammar class provides *rule, action, entry, parser* methods.
+- You can use any object types as identifier, but recommends Symbol objects in terms of performace.
+#### rule(id, ...) -> self
+#### action(id, func) -> self
+#### entry(id) -> self
+#### parser -> Parser
 
 ### Parser Class
 - Parser class provides *parse, input, run, accepted?, accepted_string, action_result, result* methods.
 - Parser class has other public methods, but they are no use for general users because provided for dubugging.
+#### parse(input_string) -> Boolean
+#### input(input_string, offset=0) -> self
+#### run(max_step=nil) -> self
+#### accepted? -> Boolean
+#### accepted_string -> String
+#### action_result -> Object
+#### result -> [Boolean, String, Object]
 
 ### ActionArgument Class
 - Each action is called only if it successes accepting the corresponding nonterminal symbol. Then, an ActionArgument Class object is passed to the action procedure.
-- ActionArgument class provides *start_pos, end_pos, elements, content* methods.
+- ActionArgument class provides *id, start_pos, end_pos, elements, content* methods.
+#### id -> Object
+#### start_pos -> Integer
+#### end_pos -> Integer
+#### elements -> [Object]
+#### content -> String
 
 ### Expr Module
-- In Expr module, there are classes corresponding to PEG notations. The relations are as follows.
+In Expr module, there are classes corresponding to PEG notations. The relations are as follows.
 
-| Class Name | PEG notation | Description |
+| Class Name | PEG Notation | Description |
 |:---:|:---:|:---|
 | Epsilon | ε |  null |
 | Char | [ ] | character class |
@@ -46,13 +62,15 @@ or
 | Rep0 | \* | zero or more repetition |
 | Rep1 | + | one or more repetition |
 | And | & | and predicate, look-ahead without consumption |
-| Not | ! | not predicate, look-ahead without consumption |
+| Not | ! | not predicate, look-ahead without consumption (reverse a success/fail result) |
 | Choice | / | ordered choice |
 | NT | | nonterminal symbol |
 
-- Additionally, sequence is expressed by the Ruby's Array class. You can use the bracket notation(e.g. [a,b,c]).
-- PEG sementics is very different from CFG. So, It doesn't work by same way. Refer to the following sample code.
-- Further, see the point the left-associative binary operator is written by left-recursion. In the ordinary way, *Elimination of left-recursion* and *Continuation-passing* are necessary.
+Additionally, sequence is represented by the Ruby's Array class. You can use the bracket notation(e.g. [a,b,c]).
+
+### Notes
+- PEG sementics is very different from CFG's. So, It doesn't work by the same way. Refer to the following sample code.
+- Particularly, look at the point that the left-associative binary operator is written naturally by left-recursion. In the ordinary way, *Elimination of left-recursion* and *Continuation-passing* are necessary.
 
 ### Sample : Calculator
 Representation by PEG
