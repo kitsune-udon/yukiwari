@@ -24,7 +24,7 @@ or
 
 ### Grammar Class
 - Grammar class provides *rule, action, entry, parser* methods.
-- You can use any object types as identifier, but recommends Symbol objects in terms of performace.
+- You can use any object types as identifier, but Symbol objects are recommended in terms of performace.
 
 #### rule(id, ...) -> self
 
@@ -40,6 +40,7 @@ or
 - Parser class has other public methods, but they are no use for general users because provided for dubugging.
 
 #### parse(input_string) -> Boolean
+executes *input, run, accepted* methods successively.
 
 #### input(input_string, offset=0) -> self
 
@@ -59,14 +60,17 @@ or
 - ActionArgument class provides *id, start_pos, end_pos, elements, content* methods.
 
 #### id -> Object
+returns the identifier object corresponding to the accepted nonterminal symbol.
 
 #### start_pos -> Integer
 
 #### end_pos -> Integer
 
 #### elements -> [Object]
+returns Array of accepted action results.
 
 #### content -> String
+returns accepted string value.
 
 ----
 ### Expr Module
