@@ -24,7 +24,7 @@ or
 
 ### Grammar Class
 - Grammar class provides *rule, action, entry, parser* methods.
-- You can use any object types as identifier, but Symbol objects are recommended in terms of performace.
+- You can use any object type as an identifier, but Symbol class object is recommended in terms of performance.
 
 #### rule(id, ...) -> self
 
@@ -37,10 +37,10 @@ or
 ----
 ### Parser Class
 - Parser class provides *parse, input, run, accepted?, accepted_string, action_result, result* methods.
-- Parser class has other public methods, but they are no use for general users because provided for dubugging.
+- Parser class has other public methods, but they are no use for general users because provided for debugging.
 
 #### parse(input_string) -> Boolean
-executes *input, run, accepted* methods successively.
+executes *input, run, accepted* methods, successively.
 
 #### input(input_string, offset=0) -> self
 
@@ -93,8 +93,8 @@ Additionally, sequence is represented by the Ruby's Array class. You can use the
 
 ----
 ### Notes
-- PEG sementics is very different from CFG's. So, It doesn't work by the same way. Refer to the following sample code.
-- Particularly, look at the point that the left-associative binary operator is written naturally by left-recursion. In the ordinary way, *Elimination of left-recursion* and *Continuation-passing* are necessary.
+- PEG semantics is very different from CFG's. So, It doesn't work by the same way. Refer to the following sample code.
+- Particularly, look at the point that the left-associative binary operator is written naturally by left-recursion. In the ordinary way, *Elimination of left-recursion* and *Continuation-passing* are necessary, but in this library they are not.
 
 ----
 ### Sample : Calculator
@@ -200,7 +200,7 @@ p parser.action_result
 ```
 
 ## ToDo
-- To support a way to define a grammar by Embeded-DSL.
+- To support a way to construct a grammar by embeded (or internal) DSL.
 
 ## Contributing
 
