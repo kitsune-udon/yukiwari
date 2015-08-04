@@ -91,4 +91,61 @@ module Yukiwari
       @m.input_string[@start_pos...@end_pos]
     end
   end
+
+  class Nullability
+    attr_reader :type, :v
+    def self.[](type, v=nil); self.new(type, v); end
+    def initialize(type, v=nil)
+      @type = type
+      @v = v
+    end
+    def *(x)
+      case self.type
+      when :NotNullable
+        self
+      when :Nullable
+        x
+      when :Dependent
+        case x.type
+        when :NotNullable
+          x
+        when :Nullable
+          self
+        when :Dependent
+          r = []
+          self.v.each do |left|
+            x.v.each do |right|
+              r << left + right
+            end
+          end
+          Nullability[:Dependent, r]
+        else
+          raise "unknown nullability type"
+        end
+      else
+        raise "unknown nullability type"
+      end
+    end
+    def +(x)
+      case self.type
+      when :Nullable
+        self
+      when :NotNullable
+        x
+      when :Dependent
+        case x.type
+        when :Nullable
+          x
+        when :NotNullable
+          self
+        when :Dependent
+          Nullability[:Dependent, self.v + x.v]
+        else
+          raise "unknown nullability type"
+        end
+      else
+        raise "unknown nullability type"
+      end
+    end
+  end
 end
